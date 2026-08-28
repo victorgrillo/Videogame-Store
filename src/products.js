@@ -38,9 +38,10 @@ function getProductsForClient() {
     return products.map(product => ({
         id: product.id,
         name: product.name,
-        price: product.price
+        price: product.price, 
+        stock: product.stock
 
     }))
 }
 
-export default {getProductsForClient}
+export {products, getProductsForClient};

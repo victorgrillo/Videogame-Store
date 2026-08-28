@@ -1,41 +1,69 @@
-import getProductsForClient from "./products.js";
+import {getProductsForClient} from "./products.js";
 import * as readline from "node:readline/promises";
+import {finalPrice, addToCart} from "./cart.js";
 
 async function main() {
     console.log("Loja de Videogames");
 
 
-    const rl = readline.createInterface({ input, output });
-    const answer = await rl.question("Você gostaria de comprar algum item? Responda sim para dar uma olhada");
+    const rl = readline.createInterface({ 
+        input: process.stdin, 
+        output: process.stdout });
+    let answer = await rl.question("Você gostaria de comprar algum item? Responda sim para dar uma olhada");
 
         if (answer === "sim") {
             console.log("Olhe nossos itens a venda!");
             console.log(getProductsForClient());
 
-            const  nameProduct = await rl.question("Qual item você gostaria de comprar?");
+            let  productId = Number (await rl.question("Qual item você gostaria de comprar? (Insira o ID)"));
 
-            const quantityProduct = await rl.question("Quantos itens você gostaria de comprar?");
+            let quantityProduct = Number (await rl.question("Quantos itens você gostaria de comprar?"));
 
-            const othersProducts = await rl.question("Gostaria de comprar mais algum item?")
-                if (othersProducts === "sim") {
-                    const nameSecProducts = await rl.question("Insira o nome do outro produto:")
+            addToCart(productId, quantityProduct);
+            
+            let othersProducts = await rl.question("Gostaria de comprar mais algum item?");
+            
+            while (othersProducts === "sim") {
 
-                    const quantitySecProducts = await rl.question("Quantos itens você gostaria de comprar?")
+                let productId = Number(await rl.question("Insira o ID do outro produto:"));
+                
+                let quantitySecProducts = Number(await rl.question("Quantos itens você gostaria de comprar?"));
+    
+            
+                 addToCart(productId, quantitySecProducts);
+                
+                 othersProducts = await rl.question("Gostaria de comprar mais algum item?");
+            }
+            
+                
+        
+             
+            let finishBuying = await rl.question("Podemos finalizar a compra? ");              
+            
+
+            if (finishBuying === "sim")
+                console.log("Sua compra final é de: R$" +finalPrice());
+
+                else {
+                console.log("Compra não finalizada.");
                 }
-                else { 
-                    const finishBuying = await rl.question("Podemos finalizar a compra? ")               
-                }
+                rl.close();
+            }
+
+
+                
+            
             
             
                 
                 
         
-        } else {
+        else {
             console.log("Obrigado por visitar nossa loja! Até mais!");
             rl.close();
             return;
 
-        }
+        };
 
 
 
@@ -47,11 +75,6 @@ async function main() {
         
 
     
-
-
-
-    
-
 
 
 

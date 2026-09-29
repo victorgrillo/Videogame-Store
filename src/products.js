@@ -39,7 +39,7 @@ function getProductsForClient() {
         id: product.id,
         name: product.name,
         price: product.price, 
-        stock: product.stock
+        category: product.category
 
     }))
 }

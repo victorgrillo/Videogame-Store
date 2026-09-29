@@ -6,12 +6,12 @@ The goal is to gradually evolve a simple videogame store into a structured REST 
 ### 🟢 Phase 1 — HTTP & Node.js Fundamentals
 
 * [x] Basic Node.js project structure
-* [ ] Understand HTTP fundamentals
-* [ ] HTTP methods: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`
-* [ ] HTTP status codes
-* [ ] Request and Response
-* [ ] Headers
-* [ ] JSON
+* [x] Understand HTTP fundamentals
+* [x] HTTP methods: `GET`, `POST`, `PUT`, `PATCH`, `DELETE`
+* [x] HTTP status codes
+* [x] Request and Response
+* [x] Headers
+* [x] JSON
 * [ ] Route parameters
 * [ ] Query parameters
 

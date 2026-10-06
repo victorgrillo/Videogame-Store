@@ -1,5 +1,6 @@
 import http from "http";
 import {products, getProductsForClient} from "./src/products.js";
+import { callbackify } from "util";
 
 const server = http.createServer((req, res) => {
 
@@ -11,7 +12,7 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    if(req.method === "GET" && req.url === "/products/1") {
+    if(req.method === "GET" && req.url.startsWith("/products/")) {
 
         const partes = req.url.split("/")
         const id = Number(partes[2]);
@@ -34,11 +35,36 @@ const server = http.createServer((req, res) => {
 
     }
 
+    if(req.method === "POST" && req.url === "/products") {
+        let body = ""
+        
+        req.on("data", (chunk) => { 
+            body += chunk
+        });
+        req.on("end", () => {
+            
+            const novoProduto = JSON.parse(body);
+            const ids = products.map(product => product.id);
+            let maiorId = Math.max(...ids);
+            const novoId = maiorId + 1;
+            
+            
+
+        });
+
+    return;
+    
+    }
+
+
+
+
     res.statusCode = 404;
     res.end("Route not found!");
 
     
 });
+
 
 
     

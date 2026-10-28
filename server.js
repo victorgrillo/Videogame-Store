@@ -1,6 +1,5 @@
 import http from "http";
 import {products, getProductsForClient} from "./src/products.js";
-import { callbackify } from "util";
 
 const server = http.createServer((req, res) => {
 
@@ -43,18 +42,24 @@ const server = http.createServer((req, res) => {
         });
         req.on("end", () => {
             
-            const novoProduto = JSON.parse(body);
-            const ids = products.map(product => product.id);
+            let novoProduto = JSON.parse(body);
+            let ids = products.map(product => product.id);
             let maiorId = Math.max(...ids);
-            const novoId = maiorId + 1;
-            
-            
+            let novoId = maiorId + 1;
+            novoProduto.id = novoId;
+            products.push(novoProduto);
 
-        });
-
-    return;
-    
+        res.statusCode = 201;
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        res.end(JSON.stringify({
+            message: "New product added to the database.",
+            product: novoProduto
+        }));
+    });
+        return;
+       
     }
+
 
 
 
